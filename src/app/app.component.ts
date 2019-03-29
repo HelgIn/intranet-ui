@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
 import {AuthService} from "./services/auth.service";
+import {HttpService} from "./services/HttpService";
 
 @Component({
   selector: 'app-root',
@@ -11,14 +11,24 @@ import {AuthService} from "./services/auth.service";
 export class AppComponent {
   title = 'intranet-ui';
 
-  constructor(private app: AuthService, private http: HttpClient, private router: Router) {
-   // this.app.authenticate(undefined, undefined);
+  constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {
   }
 
-  logout() {
-  //   this.http.post('logout', {}).finally(() => {
-  //     this.app.authenticated = false;
-  //     this.router.navigateByUrl('/login');
-  //   }).subscribe();
-  }
+  // ngOnInit() {
+  //   if (!this.authService.authenticated) {
+  //
+  //     this.httpService.getUser().subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.authService.authenticated = true;
+  //       },
+  //       error => {
+  //         console.log(error);
+  //         this.router.navigate(["/login"]);
+  //       }
+  //     )
+  //   }
+  //
+  // }
+
 }

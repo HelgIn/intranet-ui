@@ -10,10 +10,13 @@ import {FeedComponent} from './components/feed/feed.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from './components/register/register.component';
+import {CreateNewsComponent} from './components/create-news/create-news.component';
+import {UserComponent} from './components/user/user.component';
+import {AuthGuard} from "./guards/auth.guard";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: 'home'},
-  { path: 'feed', component: FeedComponent},
+  { path: '', pathMatch: 'full', redirectTo: '/feed'},
+  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent}
 ];
@@ -23,7 +26,9 @@ const routes: Routes = [
     AppComponent,
     LoginComponent,
     FeedComponent,
-    RegisterComponent
+    RegisterComponent,
+    CreateNewsComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

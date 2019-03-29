@@ -1,6 +1,8 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="form-register text-center">
+  <h1 class="h3 mb-3 font-weight-normal">Register</h1>
+
   <div class="form-group">
-    <input id="userName" type="text" formControlName="userName" class="form-control" placeholder="Username"/>
+    <input id="userName" type="text" formControlName="username" class="form-control" placeholder="Username"/>
   </div>
   <div class="form-group">
     <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="First Name"/>
@@ -11,5 +13,6 @@
   <div class="form-group">
     <input id="password" type="password" formControlName="password" class="form-control" placeholder="Password"/>
   </div>
-  <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary">Register</button>
+  <button [disabled]="!registerForm.valid" type="submit" class="btn btn-primary btn-block">Register</button>
 </form>
+
