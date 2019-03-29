@@ -23,6 +23,10 @@ export class HttpService {
     return this.httpClient.get<User>('/api/user');
   }
 
+  updateUser(user: User) {
+    return this.httpClient.post('/api/user/update', user);
+  }
+
   login() {
     return this.httpClient.get<User>('/api/login');
   }

@@ -1,3 +1,18 @@
-<p>
-  user-details works!
-</p>
+<form [formGroup]="userDetailsForm" (ngSubmit)="onSubmit()" class="form-register text-center">
+  <h1 class="h3 mb-3 font-weight-normal">User details</h1>
+
+  <div class="form-group">
+    <input id="username" disabled type="text" formControlName="username" class="form-control" placeholder="Username"/>
+  </div>
+  <div class="form-group">
+    <input id="firstName" type="text" formControlName="firstName" class="form-control" placeholder="First Name"/>
+  </div>
+  <div class="form-group">
+    <input id="lastName" type="text" formControlName="lastName" class="form-control" placeholder="Last Name"/>
+  </div>
+  <div class="form-group">
+    <input id="email" type="text" formControlName="email" class="form-control" placeholder="Email"/>
+  </div>
+  <button [disabled]="!userDetailsForm.valid" type="submit" class="btn btn-primary btn-block">Update</button>
+
+</form>

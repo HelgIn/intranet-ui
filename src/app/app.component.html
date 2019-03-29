@@ -9,6 +9,8 @@
       <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary mr-md-3" routerLink="/register">Sign up</a>
       <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary" routerLink="/login">Sign in</a>
     </div>
+    {{authService.authenticated}}
+    {{authService.username}}
     <app-user *ngIf="authService.authenticated"></app-user>
   </nav>
 

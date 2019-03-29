@@ -1,6 +1,5 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {HttpService} from "../../services/HttpService";
-import {User} from "../../model/User";
 import {AuthService} from "../../services/auth.service";
 
 @Component({
@@ -8,27 +7,14 @@ import {AuthService} from "../../services/auth.service";
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.sass']
 })
-export class UserComponent implements OnInit {
-
-  user: User;
+export class UserComponent {
 
   constructor(private httpService: HttpService, private authService: AuthService) {
   }
 
-  ngOnInit() {
-    this.httpService.getUser().subscribe(
-      response => {
-        this.user = response;
-        this.authService.authenticated = true;
-      },
-      error => {
-        console.log(error);
-      }
-    )
-  }
 
   getAvatarData() {
-    return this.user.username.charAt(0).toUpperCase()
+    return this.authService.username.charAt(0).toUpperCase()
   }
 
 }

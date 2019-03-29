@@ -12,6 +12,7 @@ import {map, tap} from "rxjs/operators";
 export class AuthService {
 
   authenticated = false;
+  username: string;
 
   constructor(private http: HttpClient, private router: Router) {
 
@@ -23,8 +24,13 @@ export class AuthService {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
     return this.http.get<boolean>('/api/login', {headers: headers}).pipe(
-      map(credentials => credentials && credentials['authenticated']),
-      tap(isLoggedIn => this.authenticated = isLoggedIn)
+      tap(credentials => {
+        if (credentials && credentials['authenticated']) {
+          this.authenticated = credentials['authenticated'];
+          this.username = credentials['name'];
+        }
+      }),
+      map(credentials => credentials && credentials['authenticated'])
     );
   }
 
