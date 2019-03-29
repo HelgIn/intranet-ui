@@ -22,4 +22,8 @@ export class HttpService {
   getUser() {
     return this.httpClient.get<User>('/api/user');
   }
+
+  login() {
+    return this.httpClient.get<User>('/api/login');
+  }
 }

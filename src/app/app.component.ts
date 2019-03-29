@@ -14,21 +14,11 @@ export class AppComponent {
   constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {
   }
 
-  // ngOnInit() {
-  //   if (!this.authService.authenticated) {
-  //
-  //     this.httpService.getUser().subscribe(
-  //       response => {
-  //         console.log(response);
-  //         this.authService.authenticated = true;
-  //       },
-  //       error => {
-  //         console.log(error);
-  //         this.router.navigate(["/login"]);
-  //       }
-  //     )
-  //   }
-  //
-  // }
+  ngOnInit() {
+    // if (!this.authService.authenticated) {
+    //   this.authService.login();
+    // }
+
+  }
 
 }

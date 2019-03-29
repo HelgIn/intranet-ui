@@ -2,6 +2,9 @@ import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../model/User";
 import {Router} from "@angular/router";
+import {Observable, of} from "rxjs";
+import {map, tap} from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root'
@@ -14,21 +17,15 @@ export class AuthService {
 
   }
 
-  login(credentials) {
+  login(credentials?): Observable<boolean> {
+    if (this.authenticated) return of(true);
     const headers = new HttpHeaders(credentials ? {
       authorization: 'Basic ' + btoa(credentials.username + ':' + credentials.password)
     } : {});
-
-    this.http.get('/api/login', {headers: headers}).subscribe(
-      response => {
-        console.log(response);
-        this.authenticated = response['authenticated'];
-        localStorage.setItem('currentUser', JSON.stringify(response['name']));
-        this.router.navigate(["/feed"]);
-      },
-      error => {
-        console.error(error)
-      });
+    return this.http.get<boolean>('/api/login', {headers: headers}).pipe(
+      map(credentials => credentials && credentials['authenticated']),
+      tap(isLoggedIn => this.authenticated = isLoggedIn)
+    );
   }
 
   logout() {
