@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpService} from "../../services/HttpService";
 import {News} from "../../model/News";
+import {tap} from "rxjs/operators";
 
 @Component({
   selector: 'app-feed',
@@ -10,12 +11,14 @@ import {News} from "../../model/News";
 export class FeedComponent implements OnInit {
 
   news: News[];
+  loading: boolean;
 
   constructor(private httpService: HttpService) {
   }
 
   ngOnInit() {
-    this.httpService.getNews().subscribe(
+    this.loading = true;
+    this.httpService.getNews().pipe(tap(() => this.loading = false)).subscribe(
       response => {
         console.log(response);
         this.news = response;

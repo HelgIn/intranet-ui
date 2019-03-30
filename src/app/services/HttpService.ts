@@ -30,4 +30,10 @@ export class HttpService {
   login() {
     return this.httpClient.get<User>('/api/login');
   }
+
+  getNewsById(id: number) {
+
+    return this.httpClient.get<News>(`/api/news/${id}/`);
+
+  }
 }

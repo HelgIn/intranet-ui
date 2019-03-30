@@ -1,24 +1,25 @@
-<div class="container d-flex w-100 h-100 p-3 mx-auto flex-column">
-  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-    <div class="collapse navbar-collapse" id="navbarCollapse">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item">
-          <a class="nav-link" routerLinkActive="active" routerLink="/feed">Feed</a>
-        </li>
-      </ul>
-      <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary mr-md-3" routerLink="/register">Sign up</a>
-      <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary" routerLink="/login">Sign in</a>
-    </div>
-    {{authService.authenticated}}
-    {{authService.username}}
-    <app-user *ngIf="authService.authenticated"></app-user>
-  </nav>
+<nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+  <div class="collapse navbar-collapse" id="navbarCollapse">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active" routerLink="/feed">Feed</a>
+      </li>
+    </ul>
+    <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary mr-md-3" routerLink="/register">Sign
+      up</a>
+    <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary" routerLink="/login">Sign in</a>
+  </div>
+  <app-user *ngIf="authService.authenticated"></app-user>
+</nav>
 
-  <router-outlet></router-outlet>
+<main role="main" class="flex-shrink-0">
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</main>
 
-
-</div>
-
-<footer class="blog-footer">
-  <p>Intranet UI</p>
+<footer class="blog-footer footer mt-auto py-3">
+  <div class="container">
+    <span class="text-muted">Intranet UI</span>
+  </div>
 </footer>

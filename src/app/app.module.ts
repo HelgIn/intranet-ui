@@ -14,13 +14,16 @@ import {CreateNewsComponent} from './components/create-news/create-news.componen
 import {UserComponent} from './components/user/user.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {UserDetailsComponent} from './components/user-details/user-details.component';
+import {PostDetailComponent} from './components/post-detail/post-detail.component';
+import {LoadingComponent} from './components/loading/loading.component';
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/feed'},
   { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuard]}
+  { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuard]},
+  { path: 'post', component: PostDetailComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -31,7 +34,9 @@ const routes: Routes = [
     RegisterComponent,
     CreateNewsComponent,
     UserComponent,
-    UserDetailsComponent
+    UserDetailsComponent,
+    PostDetailComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
