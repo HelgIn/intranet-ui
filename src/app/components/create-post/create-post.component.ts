@@ -1,21 +1,21 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpService} from "../../services/HttpService";
-import {News} from "../../model/News";
+import {Post} from "../../model/Post";
 
 @Component({
-  selector: 'app-create-news',
-  templateUrl: './create-news.component.html',
-  styleUrls: ['./create-news.component.sass']
+  selector: 'app-create-post',
+  templateUrl: './create-post.component.html',
+  styleUrls: ['./create-post.component.sass']
 })
-export class CreateNewsComponent implements OnInit {
+export class CreatePostComponent implements OnInit {
 
   isCollapsed: boolean = true;
 
   addNewsForm: FormGroup;
 
   @Output()
-  onAdd = new EventEmitter<News>();
+  onAdd = new EventEmitter<Post>();
 
   constructor(private httpService: HttpService, private formBuilder: FormBuilder) {
   }
@@ -28,7 +28,7 @@ export class CreateNewsComponent implements OnInit {
   }
 
   onSubmit() {
-    this.httpService.addNews(this.addNewsForm.value).subscribe(
+    this.httpService.addPost(this.addNewsForm.value).subscribe(
       response => {
         console.log(response);
         this.onAdd.emit(response);

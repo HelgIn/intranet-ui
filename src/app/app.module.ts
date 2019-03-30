@@ -10,7 +10,7 @@ import {FeedComponent} from './components/feed/feed.component';
 import {HttpClientModule} from "@angular/common/http";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {RegisterComponent} from './components/register/register.component';
-import {CreateNewsComponent} from './components/create-news/create-news.component';
+import {CreatePostComponent} from './components/create-post/create-post.component';
 import {UserComponent} from './components/user/user.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {UserDetailsComponent} from './components/user-details/user-details.component';
@@ -32,7 +32,7 @@ const routes: Routes = [
     LoginComponent,
     FeedComponent,
     RegisterComponent,
-    CreateNewsComponent,
+    CreatePostComponent,
     UserComponent,
     UserDetailsComponent,
     PostDetailComponent,

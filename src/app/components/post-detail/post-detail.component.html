@@ -1,9 +1,9 @@
 <app-loading [loading]="loading"></app-loading>
 
-<div class="blog-post" *ngIf="news">
-  <h2 class="blog-post-title">{{news.title}}</h2>
-  <p class="blog-post-meta">{{news.date}}</p>
+<div class="blog-post" *ngIf="post">
+  <h2 class="blog-post-title">{{post.title}}</h2>
+  <p class="blog-post-meta">{{post.date}}</p>
 
   <hr>
-  {{news.text}}
+  {{post.text}}
 </div>

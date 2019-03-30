@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {HttpService} from "../../services/HttpService";
-import {News} from "../../model/News";
+import {Post} from "../../model/Post";
 import {tap} from "rxjs/operators";
 
 @Component({
@@ -10,7 +10,7 @@ import {tap} from "rxjs/operators";
 })
 export class FeedComponent implements OnInit {
 
-  news: News[];
+  posts: Post[];
   loading: boolean;
 
   constructor(private httpService: HttpService) {
@@ -18,18 +18,16 @@ export class FeedComponent implements OnInit {
 
   ngOnInit() {
     this.loading = true;
-    this.httpService.getNews().pipe(tap(() => this.loading = false)).subscribe(
+    this.httpService.getPost().pipe(tap(() => this.loading = false)).subscribe(
       response => {
-        console.log(response);
-        this.news = response;
+        this.posts = response;
       },
       error => {
         console.error(error);
       })
   }
 
-  onAdd($event: News) {
-    console.log($event);
-    this.news.unshift($event);
+  onAdd($event: Post) {
+    this.posts.unshift($event);
   }
 }

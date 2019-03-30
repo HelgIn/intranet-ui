@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {News} from "../model/News";
+import {Post} from "../model/Post";
 import {User} from "../model/User";
 
 @Injectable({
@@ -11,12 +11,16 @@ export class HttpService {
   constructor(private httpClient: HttpClient) {
   }
 
-  addNews(news) {
-    return this.httpClient.post<News>('/api/news/add', news);
+  addPost(post) {
+    return this.httpClient.post<Post>('/api/post/add', post);
   }
 
-  getNews() {
-    return this.httpClient.get<News[]>('/api/news');
+  getPost() {
+    return this.httpClient.get<Post[]>('/api/post');
+  }
+
+  getNewsById(id: number) {
+    return this.httpClient.get<Post>(`/api/post/${id}/`);
   }
 
   getUser() {
@@ -31,9 +35,5 @@ export class HttpService {
     return this.httpClient.get<User>('/api/login');
   }
 
-  getNewsById(id: number) {
 
-    return this.httpClient.get<News>(`/api/news/${id}/`);
-
-  }
 }

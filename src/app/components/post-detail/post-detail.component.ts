@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
-import {News} from "../../model/News";
+import {Post} from "../../model/Post";
 import {HttpService} from "../../services/HttpService";
 import {tap} from "rxjs/operators";
 
@@ -11,7 +11,7 @@ import {tap} from "rxjs/operators";
 })
 export class PostDetailComponent implements OnInit {
 
-  news: News;
+  post: Post;
   loading: boolean;
 
   constructor(private httpService: HttpService, private route: ActivatedRoute) {
@@ -22,8 +22,7 @@ export class PostDetailComponent implements OnInit {
     let id = this.route.snapshot.queryParams['id'];
     this.httpService.getNewsById(id).pipe(tap(() => this.loading = false)).subscribe(
       response => {
-        console.log(response);
-        this.news = response;
+        this.post = response;
       },
       error => {
         console.error(error);
