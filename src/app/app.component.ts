@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
-import {Router} from "@angular/router";
 import {AuthService} from "./services/auth.service";
-import {HttpService} from "./services/HttpService";
+import {FirebaseService} from "./services/firebase.service";
+import {map, switchMap} from "rxjs/operators";
+import {from} from "rxjs";
+import {User} from "./model/User";
 
 @Component({
   selector: 'app-root',
@@ -11,14 +13,17 @@ import {HttpService} from "./services/HttpService";
 export class AppComponent {
   title = 'intranet-ui';
 
-  constructor(private authService: AuthService, private httpService: HttpService, private router: Router) {
-  }
+  constructor(private firebaseService: FirebaseService, private authService: AuthService) {
+    const users = firebaseService.getUsers();
 
-  ngOnInit() {
-    // if (!this.authService.authenticated) {
-    //   this.authService.login();
-    // }
-
+    users.pipe(
+      switchMap(data => from(data)),
+      map(dto => {
+        return {
+          username: dto.payload.doc.data()
+        } as User;
+      })
+    ).subscribe(console.log);
   }
 
 }

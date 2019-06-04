@@ -16,6 +16,10 @@ import {AuthGuard} from "./guards/auth.guard";
 import {UserDetailsComponent} from './components/user-details/user-details.component';
 import {PostDetailComponent} from './components/post-detail/post-detail.component';
 import {LoadingComponent} from './components/loading/loading.component';
+import {AngularFirestore} from "@angular/fire/firestore";
+import {AngularFireDatabaseModule} from "@angular/fire/database";
+import {AngularFireModule} from "@angular/fire";
+import {firebaseConfig} from "../environments/environment";
 
 const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: '/feed'},
@@ -45,9 +49,11 @@ const routes: Routes = [
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    AngularFireModule.initializeApp(firebaseConfig),
+    AngularFireDatabaseModule
   ],
-  providers: [],
+  providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
