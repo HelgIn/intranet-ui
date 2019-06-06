@@ -2,5 +2,8 @@
   <div class="avatar mr-1">
     <span>{{getAvatarData()}}</span>
   </div>
-  <span><a routerLinkActive="active" routerLink="/user-details" class="text-white">{{authService.username}}</a></span>
+  <span class="mr-md-3"><a routerLinkActive="active" routerLink="/user-details" class="text-white">{{authService.username}}</a></span>
+
+  <a class="btn btn-sm btn-outline-secondary" (click)="authService.logout()">Logout</a>
+
 </div>

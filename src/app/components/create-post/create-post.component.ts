@@ -2,6 +2,11 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {HttpService} from "../../services/HttpService";
 import {Post} from "../../model/Post";
+import {FirebaseService} from "../../services/firebase.service";
+import {AuthService} from "../../services/auth.service";
+import {AppState} from "../../app.state";
+import {Store} from "@ngrx/store";
+import {AddPost} from "../../actions/post.actions";
 
 @Component({
   selector: 'app-create-post',
@@ -17,7 +22,11 @@ export class CreatePostComponent implements OnInit {
   @Output()
   onAdd = new EventEmitter<Post>();
 
-  constructor(private httpService: HttpService, private formBuilder: FormBuilder) {
+  constructor(private httpService: HttpService,
+              private formBuilder: FormBuilder,
+              private firebaseService: FirebaseService,
+              private authService: AuthService,
+              private store: Store<AppState>) {
   }
 
   ngOnInit() {
@@ -28,15 +37,12 @@ export class CreatePostComponent implements OnInit {
   }
 
   onSubmit() {
-    this.httpService.addPost(this.addNewsForm.value).subscribe(
-      response => {
-        console.log(response);
-        this.onAdd.emit(response);
-        this.addNewsForm.reset();
-      },
-      error => {
-        console.error(error);
-      })
+
+    this.store.dispatch(new AddPost({
+      ...this.addNewsForm.value,
+      date: new Date().getTime(),
+      user: this.authService.username
+    } as Post));
   }
 
 }

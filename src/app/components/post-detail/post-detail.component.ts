@@ -2,7 +2,11 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from "@angular/router";
 import {Post} from "../../model/Post";
 import {HttpService} from "../../services/HttpService";
-import {tap} from "rxjs/operators";
+import {FirebaseService} from "../../services/firebase.service";
+import {AppState} from "../../app.state";
+import {Store} from "@ngrx/store";
+import {Observable} from "rxjs";
+import {LoadPost} from "../../actions/post.actions";
 
 @Component({
   selector: 'app-post-detail',
@@ -11,22 +15,16 @@ import {tap} from "rxjs/operators";
 })
 export class PostDetailComponent implements OnInit {
 
-  post: Post;
+  post$: Observable<Post>;
   loading: boolean;
 
-  constructor(private httpService: HttpService, private route: ActivatedRoute) {
+  constructor(private httpService: HttpService, private route: ActivatedRoute, private firebaseService: FirebaseService, private store: Store<AppState>) {
   }
 
   ngOnInit() {
-    this.loading = true;
     let id = this.route.snapshot.queryParams['id'];
-    this.httpService.getNewsById(id).pipe(tap(() => this.loading = false)).subscribe(
-      response => {
-        this.post = response;
-      },
-      error => {
-        console.error(error);
-      })
+    this.store.dispatch(new LoadPost(id));
+    this.post$ = this.store.select(state => state.postState.post)
   }
 
 }

@@ -10,11 +10,14 @@ import {AuthService} from "../../services/auth.service";
 export class UserComponent {
 
   constructor(private httpService: HttpService, private authService: AuthService) {
+    console.log(this.authService.username);
   }
 
 
   getAvatarData() {
-    return this.authService.username.charAt(0).toUpperCase()
+    if (this.authService.username) {
+      return this.authService.username.charAt(0).toUpperCase()
+    }
+    return null;
   }
-
 }

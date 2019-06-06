@@ -5,8 +5,7 @@
         <a class="nav-link" routerLinkActive="active" routerLink="/feed">Feed</a>
       </li>
     </ul>
-    <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary mr-md-3" routerLink="/register">Sign
-      up</a>
+    <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary mr-md-3" routerLink="/register">Sign up</a>
     <a *ngIf="!authService.authenticated" class="btn btn-sm btn-outline-secondary" routerLink="/login">Sign in</a>
   </div>
   <app-user *ngIf="authService.authenticated"></app-user>

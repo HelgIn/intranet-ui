@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   returnUrl: string;
+  error: string;
 
   constructor(public authService: AuthService, private formBuilder: FormBuilder, private router: Router, private route: ActivatedRoute) {
   }
@@ -25,15 +26,13 @@ export class LoginComponent implements OnInit {
     )
   }
 
-  onLogin() {
-    this.authService.login(this.loginForm.value).subscribe(
-      response => {
-        this.authService.authenticated = response;
-        console.error(response);
-        this.router.navigate([this.returnUrl]);
-      },
-      error => {
-        console.error(error);
-      });
+  async onLogin() {
+    try {
+      await this.authService.login(this.loginForm.value.username, this.loginForm.value.password);
+      await this.router.navigate([this.returnUrl]);
+    } catch (e) {
+      console.error(e);
+      this.error = e
+    }
   }
 }

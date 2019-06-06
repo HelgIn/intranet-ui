@@ -1,8 +1,8 @@
-<app-loading [loading]="loading"></app-loading>
+<app-spinner></app-spinner>
 
-<div class="blog-post" *ngIf="post">
+<div class="blog-post" *ngIf="post$ | async as post">
   <h2 class="blog-post-title">{{post.title}}</h2>
-  <p class="blog-post-meta">{{post.date}}</p>
+  <p class="blog-post-meta">{{post.date| date:'medium'}} by <a href="#">{{post.user}}</a></p>
 
   <hr>
   {{post.text}}

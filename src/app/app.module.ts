@@ -15,19 +15,29 @@ import {UserComponent} from './components/user/user.component';
 import {AuthGuard} from "./guards/auth.guard";
 import {UserDetailsComponent} from './components/user-details/user-details.component';
 import {PostDetailComponent} from './components/post-detail/post-detail.component';
-import {LoadingComponent} from './components/loading/loading.component';
 import {AngularFirestore} from "@angular/fire/firestore";
 import {AngularFireDatabaseModule} from "@angular/fire/database";
 import {AngularFireModule} from "@angular/fire";
 import {firebaseConfig} from "../environments/environment";
+import {postReducer} from "./reducers/post.reducer";
+import {EffectsModule} from '@ngrx/effects';
+import {StoreModule} from '@ngrx/store';
+import {StoreDevtoolsModule} from '@ngrx/store-devtools';
+import {PostsEffect} from "./effects/posts.effect";
+import {AngularFireAuthModule} from "@angular/fire/auth";
+import {spinnerReducer} from "./reducers/spinner.reducer";
+import {SpinnerEffects} from "./effects/spinner.effects";
+import {SpinnerComponent} from './components/spinner/spinner.component';
+import {userReducer} from "./reducers/user.reducer";
+import {UserEffects} from "./effects/user.effects";
 
 const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/feed'},
-  { path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
-  { path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuard]},
-  { path: 'post', component: PostDetailComponent, canActivate: [AuthGuard]}
+  {path: '', pathMatch: 'full', redirectTo: '/feed'},
+  {path: 'feed', component: FeedComponent, canActivate: [AuthGuard]},
+  {path: 'login', component: LoginComponent},
+  {path: 'register', component: RegisterComponent},
+  {path: 'user-details', component: UserDetailsComponent, canActivate: [AuthGuard]},
+  {path: 'post', component: PostDetailComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -40,7 +50,7 @@ const routes: Routes = [
     UserComponent,
     UserDetailsComponent,
     PostDetailComponent,
-    LoadingComponent
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,
@@ -51,9 +61,14 @@ const routes: Routes = [
     ReactiveFormsModule,
     RouterModule.forRoot(routes),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    EffectsModule.forRoot([PostsEffect, SpinnerEffects, UserEffects]),
+    StoreModule.forRoot({postState: postReducer, spinner: spinnerReducer, user: userReducer}),
+    StoreDevtoolsModule.instrument(),
+    AngularFireAuthModule
   ],
   providers: [AngularFirestore],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
